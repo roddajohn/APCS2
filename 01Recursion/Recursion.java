@@ -14,17 +14,14 @@ public class Recursion {
 	}
     }
     public int fib (int n) {
-	if (n < 0) {
-	    throw new IllegalArgumentException();
-	}
-	else if (n == 0) {
-	    return 0;
-	}
-	else if (n == 1) {
-	    return 1;
-	}
+	//if (n == 0) {return 0;}
+	return fibHelper(0, 0, 1, n);
+    }
+    public int fibHelper(int n, int a, int b, int target) {
+	if (n < 0) {throw new IllegalArgumentException();}
+	if (n == target) {return a;}
 	else {
-	    return fib(n - 1) + fib(n - 2);
+	    return fibHelper(n + 1, b, a + b, target);
 	}
     }
     public double sqrt(double n) {
@@ -43,13 +40,13 @@ public class Recursion {
     }
     public static void main(String[]args) {
 	Recursion r = new Recursion();
-	System.out.println(r.fact(1));
-	System.out.println(r.fact(2));
-	System.out.println(r.fact(3));
+	//System.out.println(r.fact(1));
+	//System.out.println(r.fact(2));
+	//System.out.println(r.fact(3));
 	System.out.println(r.fib(0));
 	System.out.println(r.fib(1));
 	System.out.println(r.fib(8));
-	System.out.println(r.sqrt(100));
-	System.out.println(r.sqrt(49));
+	//System.out.println(r.sqrt(100));
+	//System.out.println(r.sqrt(49));
     }
 }
