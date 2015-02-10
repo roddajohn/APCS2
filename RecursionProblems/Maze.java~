@@ -69,7 +69,7 @@ public class Maze {
 	    if (canMove(board, x, y + 1)) {
 		findPathHelper(board, x, y + 1);
 		if (board[x][y + 1] == '@') {
-		    board[x][y] = '@';
+		    board[x][y + 1] = '@';
 		}
 	    }
 	    if (canMove(board, x - 1, y)) {
@@ -90,6 +90,7 @@ public class Maze {
 		    board[x + 1][y] = '@';
 		}
 	    }
+	    board[x][y] = '.';
 	}
 	return board;
     }

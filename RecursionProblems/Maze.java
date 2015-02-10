@@ -69,25 +69,25 @@ public class Maze {
 	    if (canMove(board, x, y + 1)) {
 		findPathHelper(board, x, y + 1);
 		if (board[x][y + 1] == '@') {
-		    board[x][y + 1] = '@';
+		    board[x][y] = '@';
 		}
 	    }
 	    if (canMove(board, x - 1, y)) {
 		findPathHelper(board, x - 1, y);
 		if (board[x - 1][y] == '@') {
-		    board[x - 1][y] = '@';
+		    board[x][y] = '@';
 		}
 	    }
 	    if (canMove(board, x, y - 1)) {
 		findPathHelper(board, x, y - 1);
 		if (board[x][y - 1] == '@') {
-		    board[x][y - 1] = '@';
+		    board[x][y] = '@';
 		}
 	    }
 	    if (canMove(board, x + 1, y)) {
 		findPathHelper(board, x + 1, y);
 		if (board[x + 1][y] == '@') {
-		    board[x + 1][y] = '@';
+		    board[x][y] = '@';
 		}
 	    }
 	    board[x][y] = '.';
