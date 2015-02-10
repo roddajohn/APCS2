@@ -1,0 +1,9 @@
+GOAL: Amazing things happen in APCS
+
+Binary Trees: You either do something or you don't
+
+Group Sum: {8, 6, 7, 5, 3, 0, 9}
+You either include the 8 in the sum or you don't
+Then you either include the 6 or you don't for both of the paths of the previous question.
+This creates a tree.
+Program would complete one brach before going down another, the stack can only be as deep as deepest branch. 
