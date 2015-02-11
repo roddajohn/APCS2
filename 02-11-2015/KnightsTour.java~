@@ -27,7 +27,7 @@ public class KnightsTour{
 	for (int i = 0; i < board.length; i++) {
 	    for (int j = 0; j < board[i].length; j++) {
 		if (!board[i][j].equals("*")) {
-		    System.out.print(board[i][j]);
+		    System.out.print();
 		}
 	    }
 	    System.out.println("");
