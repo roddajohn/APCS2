@@ -110,7 +110,7 @@ public class Mazesolver{
 				    maze[x][y] = '.'
 				}
 				
-				return false;
+				return false;//by default the maze didn't get solved
     }
 
 
