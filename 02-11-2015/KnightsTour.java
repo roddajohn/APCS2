@@ -26,9 +26,7 @@ public class KnightsTour{
 	String ans = "\n";
 	for (int i = 0; i < board.length; i++) {
 	    for (int j = 0; j < board[i].length; j++) {
-		if (!board[i][j].equals("*")) {
-		    ans = ans + board[i][j] + "   ";
-		}
+		ans = ans + board[i][j];
 	    }
 	    ans = ans + "\n";
 	}
@@ -36,7 +34,7 @@ public class KnightsTour{
     }
 
     public KnightsTour(int size){
-	board = new String[size + 4][size + 4];
+	board = new String[size][size];
 	System.out.println("Instantiated board");
 	for (int i = 0; i < board.length; i++) {
 	    for (int j = 0; j < board[i].length; j++) {
@@ -93,7 +91,7 @@ public class KnightsTour{
     public static void main(String[] arrrrrrrr) {
 	System.out.println("In Main function");
 	System.out.println(clear);	
-	KnightsTour k = new KnightsTour(6);
+	KnightsTour k = new KnightsTour(5);
 	k.solve();	
     }
 }
