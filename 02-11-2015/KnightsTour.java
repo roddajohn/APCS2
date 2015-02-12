@@ -40,10 +40,7 @@ public class KnightsTour{
 	System.out.println("Instantiated board");
 	for (int i = 0; i < board.length; i++) {
 	    for (int j = 0; j < board[i].length; j++) {
-		if ((1 - i >= 0 || board.length - i <= 2) || (1 - j >= 0 || board[i].length - j <= 2)) {
-		    board[i][j] = "*";
-		}
-		else if (i == 2 && j == 2) {
+		if (i == 2 && j == 2) {
 		    board[i][j] = "K";
 		}
 		else {
@@ -62,24 +59,20 @@ public class KnightsTour{
 		    solve(i, j, 0);
 		}
 	    }
-	}			
+	}
+	System.out.println(this);			
     }
 
 		
     public boolean solve(int x,int y,int currentMoveNumber){
-	System.out.println(this);
-	wait(1);
-	boolean solved = true;
-        for (int i = 0; i < board.length; i++) {
-	    for (int j = 0; j < board.length; j++) {
-		if (board[i][j].equals("_")) {
-		    solved = false;
-		}
-	    }
-	}
-	if (solved) {return solved;}
+	//System.out.println(this);
+	//wait(20);
+      	
 	if (board[x][y].equals("_") || board[x][y].equals("K")) {
-	    board[x][y] = "@";
+	    board[x][y] = "" + currentMoveNumber;
+	    if (currentMoveNumber == (board.length - 4) * (board.length - 4) - 3) {
+		return true;
+	    }
 	    if (solve(x - 1, y + 2, currentMoveNumber + 1) || 
 		solve(x + 1, y + 2, currentMoveNumber + 1) || 
 		solve(x + 2, y - 1, currentMoveNumber + 1) || 
@@ -100,7 +93,7 @@ public class KnightsTour{
     public static void main(String[] arrrrrrrr) {
 	System.out.println("In Main function");
 	System.out.println(clear);	
-	KnightsTour k = new KnightsTour(5);
+	KnightsTour k = new KnightsTour(6);
 	k.solve();	
     }
 }
