@@ -40,12 +40,9 @@ public class nQueens{
 	System.out.println("Instantiated board");
 	for (int i = 0; i < board.length; i++) {
 	    for (int j = 0; j < board[i].length; j++) {
-		if (j == 0 /*&& i == 0*/) {
-		    board[i][j] = "Q";
-		}
-		else {
-		    board[i][j] = "_";
-		}
+		
+		board[i][j] = "_";
+		
 	    }
 	}
 	System.out.println(this);			
@@ -56,27 +53,31 @@ public class nQueens{
 	solve(0, 0);
     }
 
-		
-    public boolean solve(int x,int y){
-	
+    public boolean solve(int x, int y) {
+	if (debug) {
+	    wait(200);
+	    System.out.println(this);
+	}
+	String hi;
 	try {
-	    String lol = board[x][y];
+	    hi = board[x][y];
 	}
 	catch (IndexOutOfBoundsException e) {
 	    return false;
 	}
+
+	if (boardDone()) {
+	    return true;
+	}
 	board[x][y] = "Q";
-	if (debug) {
-	    System.out.println(this);
-	    wait(200);
+	if (!isQueenInStraightLines(x, y) && !isQueenDiagonally(x, y)) {
+	    if (solve(x + 1, 0)) {
+		return true;
+	    }
 	}
-      	if (boardDone()) {
-	    return true;
-	}
+	
 	board[x][y] = "_";
-	if (solve(x + 1, y)) {
-	    return true;
-	}
+
 	if (solve(x, y + 1)) {
 	    return true;
 	}

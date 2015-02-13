@@ -40,12 +40,9 @@ public class nQueens{
 	System.out.println("Instantiated board");
 	for (int i = 0; i < board.length; i++) {
 	    for (int j = 0; j < board[i].length; j++) {
-		if (j == 0 /*&& i == 0*/) {
-		    board[i][j] = "Q";
-		}
-		else {
-		    board[i][j] = "_";
-		}
+		
+		board[i][j] = "_";
+		
 	    }
 	}
 	System.out.println(this);			
@@ -56,31 +53,34 @@ public class nQueens{
 	solve(0, 0);
     }
 
-		
-    public boolean solve(int x,int y){
-	
+    public boolean solve(int x, int y) {
+	if (debug) {
+	    wait(200);
+	    System.out.println(this);
+	}
+	String hi;
 	try {
-	    String lol = board[x][y];
+	    hi = board[x][y];
 	}
 	catch (IndexOutOfBoundsException e) {
 	    return false;
 	}
-	board[x][y] = "Q";
-	if (debug) {
-	    System.out.println(this);
-	    wait(200);
-	}
-      	if (boardDone()) {
+
+	if (boardDone()) {
 	    return true;
 	}
+	board[x][y] = "Q";
+	if (!isQueenInStraightLines(x, y) && !isQueenDiagonally(x, y)) {
+	    if (solve(x + 1, 0)) {
+		return true;
+	    }
+	}
+	
+	board[x][y] = "_";
+
 	if (solve(x, y + 1)) {
 	    return true;
 	}
-	board[x][y] = "_";
-	if (solve(x + 1, y)) {
-	    return true;
-	}
-	
 	return false;
     }
 
@@ -99,7 +99,7 @@ public class nQueens{
 		}
 	    }
 	}
-	if (counter == board.length - 1) {
+	if (counter == board.length) {
 	    doneCounter = true;
 	}
 	for (int i = 0; i < board.length; i++) {
@@ -128,20 +128,8 @@ public class nQueens{
 	return false;
     }
     public boolean isQueenDiagonally(int x, int y) {
-	try {
-	    String lol = board[x][y];
-	}
-	catch (IndexOutOfBoundsException e) {
-	    return true;
-	}
-
-	if(board[x][y].equals("Q")) {
-	    return false;
-	}
-	else if (isQueenDiagonally(x + 1, y + 1) && isQueenDiagonally(x - 1, y + 1) && isQueenDiagonally(x - 1, y - 1) && isQueenDiagonally(x + 1, y - 1)) {
-	    return true;
-	}
-	return false;
+	boolean is = false;
+	//Figure out how this check will work, everything else will work
     }
 
     public static void main(String[] args) {
