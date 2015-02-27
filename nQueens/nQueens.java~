@@ -99,7 +99,7 @@ public class nQueens{
 		}
 	    }
 	}
-	if (counter == board.length - 1) {
+	if (counter == board.length) {
 	    doneCounter = true;
 	}
 	for (int i = 0; i < board.length; i++) {
@@ -128,20 +128,21 @@ public class nQueens{
 	return false;
     }
     public boolean isQueenDiagonally(int x, int y) {
-	try {
-	    String lol = board[x][y];
-	}
-	catch (IndexOutOfBoundsException e) {
-	    return true;
-	}
+	boolean go = true;
+	int i = 0;
+	while (go) {
+	    try {
+		if (board[x + i][y + i].equals("Q")) {
 
-	if(board[x][y].equals("Q")) {
-	    return false;
+		}
+	    }
+	    catch (ArrayIndexOutOfBoundsException e) {
+
+	    }
+	    try {
+		if (board[x - i][y - i]
 	}
-	else if (isQueenDiagonally(x + 1, y + 1) && isQueenDiagonally(x - 1, y + 1) && isQueenDiagonally(x - 1, y - 1) && isQueenDiagonally(x + 1, y - 1)) {
-	    return true;
-	}
-	return false;
+	//Figure out how this check will work, everything else will work
     }
 
     public static void main(String[] args) {

@@ -50,68 +50,21 @@ public class nQueens{
 
     
     public void solve() {
-	solve(0, 0);
+	solve(0);
     }
 
-    public boolean solve(int x, int y) {
+    public boolean solve(int x) {
 	if (debug) {
 	    wait(200);
 	    System.out.println(this);
 	}
-	String hi;
-	try {
-	    hi = board[x][y];
-	}
-	catch (IndexOutOfBoundsException e) {
-	    return false;
-	}
-
-	if (boardDone()) {
-	    return true;
-	}
-	board[x][y] = "Q";
-	if (!isQueenInStraightLines(x, y) && !isQueenDiagonally(x, y)) {
-	    if (solve(x + 1, 0)) {
-		return true;
-	    }
-	}
 	
-	board[x][y] = "_";
-
-	if (solve(x, y + 1)) {
-	    return true;
-	}
+	
 	return false;
     }
 
     public void setDebug(boolean b) {
 	debug = b;
-    }
-
-    public boolean boardDone() {
-	boolean done = true;
-	boolean doneCounter = false;
-	int counter = 0;
-	for (int i = 0; i < board.length; i++) {
-	    for (int j = 0; j < board[i].length; j++) {
-		if (board[i][j].equals("Q")) {
-		    counter++;
-		}
-	    }
-	}
-	if (counter == board.length) {
-	    doneCounter = true;
-	}
-	for (int i = 0; i < board.length; i++) {
-	    for (int j = 0; j < board[i].length; j++) {
-		if (board[i][j].equals("Q")) {
-		    if (isQueenDiagonally(i, j) || isQueenInStraightLines(i, j)) {
-			done = false;
-		    }
-		}
-	    }
-	}
-	return done && doneCounter;
     }
 
     public boolean isQueenInStraightLines(int x, int y) {
@@ -128,7 +81,20 @@ public class nQueens{
 	return false;
     }
     public boolean isQueenDiagonally(int x, int y) {
-	boolean is = false;
+	boolean go = true;
+	int i = 0;
+	while (go) {
+	    try {
+		if (board[x + i][y + i].equals("Q")) {
+
+		}
+	    }
+	    catch (ArrayIndexOutOfBoundsException e) {
+
+	    }
+	    try {
+		if (board[x - i][y - i]
+	}
 	//Figure out how this check will work, everything else will work
     }
 

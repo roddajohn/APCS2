@@ -54,14 +54,31 @@ public class NQueens{
     
     public void solve() {
 	solve(0);
+	System.out.println(this);
     }
 
     public boolean solve(int x) {
 	if (debug) {
-	    wait(200);
+	    wait(100);
 	    System.out.println(this);
 	}
-	
+
+	if (x == board.length) {
+	    return true;
+	}
+	for (int i = 0; i < board[x].length; i++) {
+	    board[x][i] = "Q";
+	    if (debug) {
+		wait(100);
+		System.out.println(this);
+	    }
+	    if (noQueenDiagonally(x, i) && noQueenLeftRight(x, i)) {
+		if (solve(x + 1)) {
+		    return true;
+		}
+	    }
+	    board[x][i] = "_"; 
+	}
 	
 	return false;
     }
@@ -70,41 +87,35 @@ public class NQueens{
 	debug = b;
     }
 
-    /*    public boolean isQueenInStraightLines(int x, int y) {
-	for (int i = 0; i < board[x].length; i++) {
-	    if (board[x][i].equals("Q") && i != y) {
-		return true;
-	    }
-	}
+    public boolean noQueenDiagonally(int x, int y) {
 	for (int i = 0; i < board.length; i++) {
-	    if (board[i][y].equals("Q") && x != i) {
-		return true;
-	    }
-	}
-	return false;
-    }
-    public boolean isQueenDiagonally(int x, int y) {
-	boolean go = true;
-	int i = 0;
-	while (go) {
-	    try {
-		if (board[x + i][y + i].equals("Q")) {
-
+	    for (int j = 0; j < board[i].length; j++) {
+		if (Math.abs(i - x) == Math.abs(j - y) && board[i][j].equals("Q") && x != i && y != j) {
+		    return false;
 		}
 	    }
-	    catch (ArrayIndexOutOfBoundsException e) {
-
-	    }
-	    try {
-		if (board[x - i][y - i]
 	}
-	//Figure out how this check will work, everything else will work
-    }*/
+	return true;
+    }
+
+    public boolean noQueenLeftRight(int x, int y) {
+	for (int i = 0; i < board.length; i++) {
+	    for (int j = 0; j < board[i].length; j++) {
+		if (i == x && board[i][j].equals("Q") && j != y) {
+		    return false;
+		}
+		if (y == j && board[i][j].equals("Q") && i != x) {
+		    return false;
+		}
+	    }
+	}
+	return true;
+    }
 
     public static void main(String[] args) {
 	System.out.println("In Main function");
 	System.out.println(clear);	
-	nQueens k = new nQueens(Integer.parseInt(args[0]));
+	NQueens k = new NQueens(Integer.parseInt(args[0]));
 	if (args[1].equals("y")) {
 	    k.setDebug(true);
 	}
