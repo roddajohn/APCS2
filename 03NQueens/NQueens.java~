@@ -54,6 +54,7 @@ public class NQueens{
     
     public void solve() {
 	solve(0);
+	System.out.println(this);
     }
 
     public boolean solve(int x) {
@@ -121,7 +122,6 @@ public class NQueens{
 	else {
 	    k.setDebug(false);
 	}
-	k.solve();
-	System.out.println(this);	
+	k.solve();	
     }
 }
