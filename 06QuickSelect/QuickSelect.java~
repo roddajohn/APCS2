@@ -1,0 +1,9 @@
+public class QuickSelect {
+    public static void main(String[] args) {
+
+    }
+
+    public static int partition(int[], int start, int end) {
+
+    }
+}
