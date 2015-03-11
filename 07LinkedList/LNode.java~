@@ -1,0 +1,29 @@
+public class LNode {
+    private int o;
+    private Node n;
+    
+    public LNode(int object, LNode nextNode) {
+	o = object;
+	n = nextNode;
+    }
+    public LNode() {}
+    public LNode(int object) {
+	o = object;
+    }
+
+    public int get() {
+	return o;
+    }
+    public Node cdr() {
+	return n;
+    }
+    public void setCar(int object) {
+	o = object;
+    }
+    public void setCdr(LNode nextNode) {
+	n = nextNode;
+    }
+    public String toString() {
+	return "" + o;
+    }
+}
