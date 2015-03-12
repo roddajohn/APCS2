@@ -1,3 +1,0 @@
-Goal: Tables
-
-Look up VT100 Control Escape Sequences, cool terminal stuff
