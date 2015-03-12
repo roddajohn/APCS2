@@ -23,10 +23,10 @@ public class LinkedList {
 	LNode checking = node;
 	String toReturn = "{";
 	if (checking != null) {
-	    toReturn += (checking.car() + " ");
+	    toReturn += (checking.car() + "");
 	    while (checking.cdr() != null) {
 		checking = checking.cdr();
-		toReturn += (checking.car() + " ");
+		toReturn += (", " + checking.car());
 	    }
 	}
 	toReturn += "}";
@@ -45,6 +45,9 @@ public class LinkedList {
 	return checking.car();
     }
     public void set (int index, int value) {
+	if (index < 0) {
+	    throw new IndexOutOfBoundsException();
+	}
 	LNode checking = node;
 	for (int i = 0; i < index; i++) {
 	    if (checking == null) {
@@ -76,6 +79,9 @@ public class LinkedList {
 	}
     }
     public void add(int value, int index) {
+	if (index < 0) {
+	    throw new IndexOutOfBoundsException();
+	}
 	LNode checking = node;
 	for (int i = 0; i < (index - 1); i++) {
 	    if (checking == null) {
@@ -95,6 +101,9 @@ public class LinkedList {
 	}
     }
     public void remove(int index) {
+	if (index < 0) {
+	    throw new IndexOutOfBoundsException();
+	}
 	LNode checking = node;
 	for (int i = 0; i < (index - 1); i++) {
 	    if (checking == null) {
