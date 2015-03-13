@@ -1,23 +1,23 @@
-public class LNode {
-    private int o;
-    private Node n;
+public class LNode<T> {
+    private T o;
+    private LNode n;
     
     public LNode(int object, LNode nextNode) {
 	o = object;
 	n = nextNode;
     }
     public LNode() {}
-    public LNode(int object) {
+    public LNode(T object) {
 	o = object;
     }
 
-    public int get() {
+    public T car() {
 	return o;
     }
-    public Node cdr() {
+    public LNode cdr() {
 	return n;
     }
-    public void setCar(int object) {
+    public void setCar(T object) {
 	o = object;
     }
     public void setCdr(LNode nextNode) {
