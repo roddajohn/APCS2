@@ -3,6 +3,10 @@ public class Sorts {
 
     }
 
+    public static String name() {
+	return "john.rodda";
+    }
+
     public static int partition(int arr[], int left, int right)
     {
 	int i = left, j = right;

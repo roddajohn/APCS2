@@ -14,13 +14,13 @@ public class LNode<T> {
     public T car() {
 	return o;
     }
-    public LNode cdr() {
+    public LNode<T> cdr() {
 	return n;
     }
     public void setCar(T object) {
 	o = object;
     }
-    public void setCdr(LNode nextNode) {
+    public void setCdr(LNode<T> nextNode) {
 	n = nextNode;
     }
     public String toString() {

@@ -10,6 +10,11 @@ public class MyLinkedList<T> {
 	System.out.println(a);
 	System.out.println(a.size());
     }
+
+    public String name() {
+	return "john.rodda";
+    }
+
     private LNode<T> node;
     private LNode<T> endNode;
     private int size;
@@ -59,7 +64,7 @@ public class MyLinkedList<T> {
 	checking.setCar(value);
     }
     public void add(T value) {
- 	LNode<T> newNode = new LNode(value);
+ 	LNode<T> newNode = new LNode<T>(value);
  	endNode.setCdr(newNode);
  	endNode = newNode;
  	size++;

@@ -3,6 +3,10 @@ public class MergeSort {
     private int[] array;
     private int[] tempMergArr;
     private int length;
+
+    public static String() {
+	return "john.rodda";
+    }
  
     public static void main(String a[]){
          
@@ -21,7 +25,11 @@ public class MergeSort {
         this.tempMergArr = new int[length];
         doMergeSort(0, length - 1);
     }
- 
+    
+    public String name() {
+	return "john.rodda";
+    }
+    
     private void doMergeSort(int lowerIndex, int higherIndex) {
          
         if (lowerIndex < higherIndex) {
