@@ -1,4 +1,5 @@
-public class MyLinkedList<T> {
+import java.util.*;
+public class MyLinkedList<T> implements Iterable<T>{
     public static void main(String[] args) {
 	MyLinkedList<String> a = new MyLinkedList<String>();
 	a.add("Hi");
@@ -9,6 +10,34 @@ public class MyLinkedList<T> {
 	a.add("L");
 	System.out.println(a);
 	System.out.println(a.size());
+	for (String n : a) {
+	    System.out.println(n);
+	}
+    }
+
+    public Iterator<T> iterator() {
+	return new MyIterator<T>(this);
+    }
+
+    private class MyIterator<T> implements Iterator<T> {
+	MyLinkedList<T> lol;
+	int index = 0;
+	public MyIterator(MyLinkedList<T> l) {
+	    lol = l;
+	}
+	public boolean hasNext() {
+	    if (index == lol.size()) {
+		return false;
+	    }
+	    return true;
+	}
+	public T next() {
+	    return lol.get(index++);
+	}
+	public void remove() {
+	    throw new UnsupportedOperationException();
+	}
+
     }
 
     public String name() {
@@ -23,6 +52,8 @@ public class MyLinkedList<T> {
 	size = 0;
 	endNode = node;
     }
+
+
     public String toString() {
 	LNode<T> checking = node.cdr();
 	String toReturn = "[";
