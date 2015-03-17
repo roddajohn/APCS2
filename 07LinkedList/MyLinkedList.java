@@ -1,16 +1,13 @@
 import java.util.*;
 public class MyLinkedList<T> implements Iterable<T>{
     public static void main(String[] args) {
-	MyLinkedList<String> a = new MyLinkedList<String>();
-	a.add("Hi");
-	a.add("I");
-	a.add("J");
-	a.add("K");
-	a.remove(3);
-	a.add("L");
-	System.out.println(a);
-	System.out.println(a.size());
-	for (String n : a) {
+	MyLinkedList<Integer> a = new MyLinkedList<Integer>();
+	a.add(1);
+	a.add(2);
+	a.add(9);
+	a.add(4);
+	a.add(5);
+	for (int n : a) {
 	    System.out.println(n);
 	}
     }
