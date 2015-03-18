@@ -13,23 +13,24 @@ public class MyLinkedList<T> implements Iterable<T>{
     }
 
     public Iterator<T> iterator() {
-	return new MyIterator<T>(this);
+	return new MyIterator<T>(node.cdr());
     }
 
     private class MyIterator<T> implements Iterator<T> {
-	MyLinkedList<T> lol;
-	int index = 0;
-	public MyIterator(MyLinkedList<T> l) {
+	LNode<T> lol;
+	public MyIterator(LNode<T> l) {
 	    lol = l;
 	}
 	public boolean hasNext() {
-	    if (index == lol.size()) {
+	    if (lol == null) {
 		return false;
 	    }
 	    return true;
 	}
 	public T next() {
-	    return lol.get(index++);
+	    T toReturn = lol.car();
+	    lol = lol.cdr();
+	    return toReturn;
 	}
 	public void remove() {
 	    throw new UnsupportedOperationException();
