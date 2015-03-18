@@ -17,12 +17,12 @@ public class MyLinkedList<T> implements Iterable<T>{
     }
 
     private class MyIterator<T> implements Iterator<T> {
-	LNode<T> lol;
+	LNode<T> node;
 	public MyIterator(LNode<T> l) {
-	    lol = l;
+	    node = l;
 	}
 	public boolean hasNext() {
-	    if (lol == null) {
+	    if (node == null) {
 		return false;
 	    }
 	    return true;
