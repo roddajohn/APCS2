@@ -119,6 +119,9 @@ public class MyLinkedList<T> implements Iterable<T>{
 	else {
 	    LNode<T> newNode = new LNode<T>(value, checking.cdr());
 	    checking.setCdr(newNode);
+	    if (checking == endNode) {
+		endNode = newNode;
+	    }
 	}
     }
     public void remove(int index) {
