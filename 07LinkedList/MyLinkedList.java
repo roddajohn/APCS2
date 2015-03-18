@@ -28,8 +28,8 @@ public class MyLinkedList<T> implements Iterable<T>{
 	    return true;
 	}
 	public T next() {
-	    T toReturn = lol.car();
-	    lol = lol.cdr();
+	    T toReturn = node.car();
+	    node = node.cdr();
 	    return toReturn;
 	}
 	public void remove() {
