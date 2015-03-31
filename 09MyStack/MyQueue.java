@@ -8,8 +8,9 @@ public class MyQueue<T> extends MyLinkedList<T> {
 	System.out.println(a.dequeue());
     }
 
-    public void enqueue(T n) {
+    public T enqueue(T n) {
 	add(n);
+	return n;
     }
 
     public T dequeue() {

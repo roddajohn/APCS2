@@ -13,8 +13,9 @@ public class MyStack<T> extends MyLinkedList<T> {
     public MyStack() {
 	super();
     }
-    public void push(T o) {
+    public T push(T o) {
 	this.add(o, 0);
+	return o;
     }
     public T pop() {
 	T o = this.get(0);
