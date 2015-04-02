@@ -9,23 +9,9 @@ public class MyDoubleEndedQueue<T> {
 
     public static void main(String[] args) {
 	MyDoubleEndedQueue<Integer> a = new MyDoubleEndedQueue<Integer>();
-	a.addFirst(1);
-	a.addFirst(0);
-	a.addLast(2);
-	a.addLast(3);
-	a.addFirst(1);
-	a.addFirst(1);
+	System.out.println(a);
+	a.addLast(1);
 	System.out.println(a.removeFirst());
-	System.out.println(a);
-	System.out.println(a.removeLast());
-	System.out.println(a);
-	System.out.println(a.getFirst());
-	System.out.println(a.getLast());
-	System.out.println(a);
-	//	for (int i = 0; i < 100; i++) {
-	//    a.addLast(1);
-	//    System.out.println(a);
-	//}
     }
     
     public MyDoubleEndedQueue() {
@@ -36,10 +22,7 @@ public class MyDoubleEndedQueue<T> {
     }
     public String toString() {
 	String toReturn = "";
-	toReturn += "Head: ";
-	toReturn += ("" + head);
-	toReturn += "\nTail: " + ("" + tail);
-	toReturn += "\n[";
+	toReturn += "[";
 	for (Object i : data) {
 	    toReturn += i + ", ";
 	}
@@ -55,6 +38,7 @@ public class MyDoubleEndedQueue<T> {
 	if (tail == -1) {
 	    tail = data.length - 1;
 	}
+	size++;
     }
     public void addLast(T value) {
 	if (isFull()) {
@@ -64,6 +48,7 @@ public class MyDoubleEndedQueue<T> {
 	if (head == data.length) {
 	    head = 0;
 	}
+	size++;
     }
     public T removeFirst() {
         T a;
@@ -76,6 +61,7 @@ public class MyDoubleEndedQueue<T> {
 	    a = (T)data[++tail];
 	    data[tail] = null;
 	}
+	size--;
 	return a;
     }
     public T removeLast() {
@@ -89,41 +75,44 @@ public class MyDoubleEndedQueue<T> {
 	    a = (T)data[--head];
 	    data[head] = null;
 	}
+	size--;
 	return a;
     }   
     public T getFirst() {
 	if (size == 0) {
 	    throw new NoSuchElementException();
 	}
-	return (T)data[tail];
+	if (tail == data.length - 1) {
+	    return (T)data[0];
+	}
+	else {
+	    return (T)data[tail + 1];
+	}
     }
     public T getLast() {
 	if (size == 0) {
 	    throw new NoSuchElementException();
 	}
-	return (T)data[head];
+	if (head == 0) {
+	    return (T)data[data.length - 1];
+	}
+	else {
+	    return (T)data[head - 1];
+	}
     }
 	
     public void getAndResize() {
 	Object[] hi = new Object[data.length * 2];
 	int i = tail;
 	int j = 0;
+	//	System.out.println("Tail: " + tail);
+	//System.out.println("Head: " + head);
 	while (i != head) {
-	    //	    System.out.println(i + " is i");
-	    //      System.out.println(head + " is head");
-	    if (i < 0) {
-		hi[j++] = data[data.length + i++];
+	    // System.out.println("i: " + i);
+	    if (i == -1) {
+		i = data.length - 1;
 	    }
-	    else {
-		if (i == 0) {
-		    hi[j++] = data[i++];
-		}
-		else {
-		    //System.out.println("J = " + j);
-		    //System.out.println(data.length % i + " schtuff");
-		    hi[j++] = data[i++ % data.length];
-		}
-	    }
+	    hi[j++] = data[i--];
 	}
 	tail = 0;
 	head = data.length - 1;

@@ -1,4 +1,5 @@
 import java.util.*;
+import java.lang.NullPointerException;
 import java.io.*;
 public class Mazesolver{
 
@@ -7,8 +8,13 @@ public class Mazesolver{
     private int startx,starty;
 
     public static void main(String[] args) {
+	
 	Mazesolver a = new Mazesolver(args[0]);
-	a.BFS();
+	System.out.println(a.clear());
+	a.BFS(false);
+	System.out.println(a.clear());
+	//	Mazesolver b = new Mazesolver(args[0]);
+	//	b.DFS(true);
     }
 
     public Mazesolver(String filename){
@@ -47,32 +53,76 @@ public class Mazesolver{
 	}
     }
 
-    public void BFS() {
-	MyDoubleEndedQueue<Point> moves = new MyDoubleEndedQueue<Point>();
-	boolean run = true;
-	moves.addLast(new Point(startx, starty));
-	while (run) {
+    public boolean BFS(boolean animate) {
+	try {
+	    MyDoubleEndedQueue<Point> moves = new MyDoubleEndedQueue<Point>();
+	    boolean run = true;
+	    moves.addLast(new Point(startx, starty));
+	    while (run) {
+		if (animate) {
+		    System.out.println(this);
+		    wait(100);
+		}
+		//	    System.out.println(moves);
+		Point checking = moves.removeFirst();
+		//		System.out.println(checking);
+		int x = checking.getX();
+		int y = checking.getY();
+		if (maze[x][y] == 'E') {
+		    run = false;
+		}
+		else if (maze[x][y] == ' ' || maze[x][y] == 'S') {
+		    moves.addLast(new Point(x + 1, y));
+		    moves.addLast(new Point(x - 1, y));
+		    moves.addLast(new Point(x, y + 1));
+		    moves.addLast(new Point(x, y - 1));
+		    maze[x][y] = 'x';
+		}
+	    }
 	    System.out.println(this);
-	    wait(100);
 	    System.out.println(moves);
-	    Point checking = moves.removeFirst();
-	    System.out.println(checking);
-	    int x = checking.getX();
-	    int y = checking.getY();
-	    if (maze[x][y] == 'E') {
-		run = false;
-	    }
-	    else if (maze[x][y] == ' ' || maze[x][y] == 'S') {
-		moves.addLast(new Point(x + 1, y));
-		moves.addLast(new Point(x - 1, y));
-		moves.addLast(new Point(x, y + 1));
-		moves.addLast(new Point(x, y - 1));
-		maze[x][y] = '*';
-	    }
+	    return true;
 	}
-	System.out.println(this);
+	catch (NullPointerException e) {
+	    return false;
+	}
     }
 
+    public boolean DFS(boolean animate) {
+	try {
+	    MyDoubleEndedQueue<Point> moves = new MyDoubleEndedQueue<Point>();
+	    boolean run = true;
+	    moves.addLast(new Point(startx, starty));
+	    while (run) {
+		if (animate) {
+		    System.out.println(this);
+		    wait(100);
+		}
+		System.out.println(moves);
+		Point checking = moves.removeLast();
+		//          System.out.println(checking);
+		int x = checking.getX();
+		int y = checking.getY();
+		if (maze[x][y] == 'E') {
+		    run = false;
+		}
+		else if (maze[x][y] == ' ' || maze[x][y] == 'S') {
+		    moves.addLast(new Point(x + 1, y));
+		    moves.addLast(new Point(x - 1, y));
+		    moves.addLast(new Point(x, y + 1));
+		    moves.addLast(new Point(x, y - 1));
+		    maze[x][y] = 'x';
+		}
+	    }
+	    System.out.println(this);
+	    System.out.println(moves);
+	    return true;
+	}
+	catch (NullPointerException e) {
+	    return false;
+	}
+    }    
+    
     
     private String go(int x,int y){
 	return ("["+x+";"+y+"H");
