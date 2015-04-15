@@ -2,16 +2,27 @@ import java.util.NoSuchElementException;
 
 public class MyDoubleEndedQueue<T> {
     private Object[] data;
+    private Object[] priority;
     private int head;
     private int tail;
     private int size;
-
-
+    
+    
     public static void main(String[] args) {
 	MyDoubleEndedQueue<Integer> a = new MyDoubleEndedQueue<Integer>();
 	System.out.println(a);
 	a.addLast(1);
 	System.out.println(a.removeFirst());
+	for (int i = 0; i < 50; i++) {
+	    a.addFirst(2);
+	    a.addFirst(6);
+	    //	    a.removeFirst();
+	    a.addFirst(8);
+	    a.addFirst(10);
+	    //	    a.removeLast();
+	    a.addFirst(6);
+	    System.out.println(a);
+	}
     }
     
     public MyDoubleEndedQueue() {
@@ -22,6 +33,8 @@ public class MyDoubleEndedQueue<T> {
     }
     public String toString() {
 	String toReturn = "";
+	toReturn += "Head: " + head + "\n";
+	toReturn += "Tail: " + tail + "\n";
 	toReturn += "[";
 	for (Object i : data) {
 	    toReturn += i + ", ";
@@ -29,7 +42,7 @@ public class MyDoubleEndedQueue<T> {
 	toReturn += "]";
 	return toReturn;
     }
-
+    
     public void addFirst(T value) {
 	if (isFull()) {
 	    getAndResize();
@@ -109,10 +122,11 @@ public class MyDoubleEndedQueue<T> {
 	//System.out.println("Head: " + head);
 	while (i != head) {
 	    // System.out.println("i: " + i);
-	    if (i == -1) {
-		i = data.length - 1;
-	    }
+ 
 	    hi[j++] = data[i--];
+	    if (i == -1) {
+ 		i = data.length - 1;
+	    }
 	}
 	tail = 0;
 	head = data.length - 1;
@@ -125,5 +139,8 @@ public class MyDoubleEndedQueue<T> {
 	    }
 	}
 	return true;
+    }
+    public int size() {
+	return size;
     } 
 }
