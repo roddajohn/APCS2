@@ -182,9 +182,10 @@ public class Mazesolver{
 	solution.add(p);
 	while (p.hasNext()) {
 	    solution.add(p.previousPoint());
-	    p = p.previousPoint();
 	    maze[p.getX()][p.getY()] = 'P';
+	    p = p.previousPoint();
 	}
+	maze[p.getX()][p.getY()] = 'P';
 	Collections.reverse(solution);
     }
 
