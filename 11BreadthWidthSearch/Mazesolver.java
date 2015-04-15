@@ -13,7 +13,7 @@ public class Mazesolver{
     public static void main(String[] args) {
 	
 	Mazesolver a = new Mazesolver(args[0]);
-	a.solve(1);
+	a.solve(0);
 	System.out.println(a);
 	//	Mazesolver b = new Mazesolver(args[0]);
 	//	b.DFS(true);

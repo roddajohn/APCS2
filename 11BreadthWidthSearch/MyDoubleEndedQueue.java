@@ -2,7 +2,7 @@ import java.util.NoSuchElementException;
 
 public class MyDoubleEndedQueue<T> {
     private Object[] data;
-    private Object[] priority;
+    private int[] priority;
     private int head;
     private int tail;
     private int size;
@@ -11,18 +11,11 @@ public class MyDoubleEndedQueue<T> {
     public static void main(String[] args) {
 	MyDoubleEndedQueue<Integer> a = new MyDoubleEndedQueue<Integer>();
 	System.out.println(a);
-	a.addLast(1);
-	System.out.println(a.removeFirst());
-	for (int i = 0; i < 50; i++) {
-	    a.addFirst(2);
-	    a.addFirst(6);
-	    //	    a.removeFirst();
-	    a.addFirst(8);
-	    a.addFirst(10);
-	    //	    a.removeLast();
-	    a.addFirst(6);
-	    System.out.println(a);
-	}
+	a.addFirst(5, 0);
+	a.addFirst(6, 1);
+	a.addFirst(7, 2);
+	System.out.println(a.removeSmallest());
+	System.out.println(a);
     }
     
     public MyDoubleEndedQueue() {
@@ -30,11 +23,14 @@ public class MyDoubleEndedQueue<T> {
 	head = 5;
 	tail = 4;
 	size = 0;
+	priority = new int[10];
+	for (int i = 0; i < priority.length; i++) {
+	    priority[i] = Integer.MAX_VALUE;
+	}
     }
+
     public String toString() {
 	String toReturn = "";
-	toReturn += "Head: " + head + "\n";
-	toReturn += "Tail: " + tail + "\n";
 	toReturn += "[";
 	for (Object i : data) {
 	    toReturn += i + ", ";
@@ -53,6 +49,19 @@ public class MyDoubleEndedQueue<T> {
 	}
 	size++;
     }
+
+    public void addFirst(T value, int p) {
+	if (isFull()) {
+	    getAndResize();
+	}
+	data[tail] = value;
+	priority[tail] = p;
+	tail--;
+	if (tail == -1) {
+	    tail = data.length - 1;
+	}
+	size++;
+    }
     public void addLast(T value) {
 	if (isFull()) {
 	    getAndResize();
@@ -62,6 +71,66 @@ public class MyDoubleEndedQueue<T> {
 	    head = 0;
 	}
 	size++;
+    }
+    public void addLast(T value, int p) {
+	if (isFull()) {
+	    getAndResize();
+	}
+	data[head] = value;
+	priority[head] = p;
+	head++;
+	if (head == data.length) {
+	    head = 0;
+	}
+	size++;
+    }
+    public T removeSmallest() {
+	int indexOfSmallest = 0;
+	for (int i = 0; i < data.length; i++) {
+	    if (priority[i] < priority[indexOfSmallest] && data[i] != null) {
+		indexOfSmallest = i;
+ 	    }
+	}
+	T toReturn = (T)data[indexOfSmallest];
+	eliminateEmpty(indexOfSmallest);
+	return toReturn;
+    }
+    public T removeLargest() {
+	int indexOfSmallest = 0;
+	for (int i = 0; i < data.length; i++) {
+	    if (priority[i] > priority[indexOfSmallest]) {
+		indexOfSmallest = i;
+	    }
+	}
+	T toReturn = (T)data[indexOfSmallest];
+	eliminateEmpty(indexOfSmallest);
+	return toReturn;
+    }
+    public void eliminateEmpty(int index) {
+	int i = tail;
+	Object previous = null;
+	int previousPriority = 0;
+	while (i != index) {
+	    Object temp = previous;
+	    previous = data[i];
+	    data[i] = temp;
+	    int tempa = previousPriority;
+	    tempa = previousPriority;
+	    previousPriority = priority[i];
+	    priority[i] = tempa;
+	    i--;
+	    if (i == -1) {
+		i = data.length - 1;
+	    }
+	}
+	Object temp = previous;
+	previous = data[i];
+	data[i] = temp;
+	int tempa = previousPriority;
+	tempa = previousPriority;
+	previousPriority = priority[i];
+	priority[i] = tempa;
+	size--;
     }
     public T removeFirst() {
         T a;
