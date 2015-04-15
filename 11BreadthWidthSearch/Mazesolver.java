@@ -114,7 +114,7 @@ public class Mazesolver{
 	    }
 	    ans = ans + "\n";
 	}
-	return hide()+clear()+invert()+go(0,0)+ans+"\n"+rest.toString()+show();
+	return hide()+clear()+invert()+go(0,0)+ans+"\n"+show();
     }
     
     public boolean solve(int mode){
