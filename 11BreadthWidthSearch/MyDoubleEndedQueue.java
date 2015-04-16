@@ -9,12 +9,16 @@ public class MyDoubleEndedQueue<T> {
     
     
     public static void main(String[] args) {
-	MyDoubleEndedQueue<Integer> a = new MyDoubleEndedQueue<Integer>();
+	MyDoubleEndedQueue<String> a = new MyDoubleEndedQueue<String>();
 	System.out.println(a);
-	a.addFirst(5, 0);
-	a.addFirst(6, 1);
-	a.addFirst(7, 2);
-	System.out.println(a.removeSmallest());
+	a.addFirst("i", 0);
+	a.addFirst("i", 1);
+	a.addFirst("i", 2);
+	for (int i = 0; i < 100; i++) {
+	    a.addFirst("i", i);
+	}
+	a.addFirst("i", 0);
+	System.out.println(a.removeLargest());
 	System.out.println(a);
     }
     
@@ -24,15 +28,20 @@ public class MyDoubleEndedQueue<T> {
 	tail = 4;
 	size = 0;
 	priority = new int[10];
-	for (int i = 0; i < priority.length; i++) {
-	    priority[i] = Integer.MAX_VALUE;
-	}
+	//	for (int i = 0; i < priority.length; i++) {
+	//	    priority[i] = Integer.MAX_VALUE;
+	//	}
     }
 
     public String toString() {
 	String toReturn = "";
 	toReturn += "[";
 	for (Object i : data) {
+	    toReturn += i + ", ";
+	}
+	toReturn += "]";
+	toReturn += "\n[";
+	for (int i : priority) {
 	    toReturn += i + ", ";
 	}
 	toReturn += "]";
@@ -87,7 +96,7 @@ public class MyDoubleEndedQueue<T> {
     public T removeSmallest() {
 	int indexOfSmallest = 0;
 	for (int i = 0; i < data.length; i++) {
-	    if (priority[i] < priority[indexOfSmallest] && data[i] != null) {
+	    if ((priority[i] > priority[indexOfSmallest] && data[i] != null)||data[indexOfSmallest] == null) {
 		indexOfSmallest = i;
  	    }
 	}
@@ -98,7 +107,7 @@ public class MyDoubleEndedQueue<T> {
     public T removeLargest() {
 	int indexOfSmallest = 0;
 	for (int i = 0; i < data.length; i++) {
-	    if (priority[i] > priority[indexOfSmallest]) {
+	    if ((priority[i] > priority[indexOfSmallest] && data[i] != null)||data[indexOfSmallest] == null) {
 		indexOfSmallest = i;
 	    }
 	}
@@ -185,6 +194,7 @@ public class MyDoubleEndedQueue<T> {
 	
     public void getAndResize() {
 	Object[] hi = new Object[data.length * 2];
+	int[] lol = new int[data.length * 2];
 	int i = tail;
 	int j = 0;
 	//	System.out.println("Tail: " + tail);
@@ -192,7 +202,10 @@ public class MyDoubleEndedQueue<T> {
 	while (i != head) {
 	    // System.out.println("i: " + i);
  
-	    hi[j++] = data[i--];
+	    hi[j] = data[i];
+	    lol[j] = priority[i];
+	    j++;
+	    i--;
 	    if (i == -1) {
  		i = data.length - 1;
 	    }
@@ -200,6 +213,7 @@ public class MyDoubleEndedQueue<T> {
 	tail = 0;
 	head = data.length - 1;
 	data = hi;
+	priority = lol;
     }
     public boolean isFull() {
 	for (Object a : data) {

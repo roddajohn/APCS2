@@ -13,12 +13,15 @@ public class Mazesolver{
     public static void main(String[] args) {
 	
 	Mazesolver a = new Mazesolver(args[0]);
-	a.solve(1);
+	a.solve(2);
 	System.out.println(a);
 	//	Mazesolver b = new Mazesolver(args[0]);
 	//	b.DFS(true);
     }
 
+    private String color(int foreground,int background) {
+	return ("\033[1;" + foreground + ";" + background + "m");
+    }
     public Mazesolver(String filename){
 	startx = -1;
 	starty = -1;
@@ -114,18 +117,18 @@ public class Mazesolver{
 	    }
 	    ans = ans + "\n";
 	}
-	return hide()+clear()+invert()+go(0,0)+ans+"\n"+show();
+	return hide()+clear()+invert()+go(0,0)+ans+"\n"+rest.toString()+"\n"+show();
     }
     
     public boolean solve(int mode){
 	boolean animate = true;
-	rest = new Frontier(mode);
+	rest = new Frontier(mode, endx, endy);
 	Point start = new Point(startx, starty);
 
 	rest.add(start);
 
 	boolean solved = false;
-	try {
+	//try {
 	    while(!solved && rest.hasNext()){
 		if(animate && !solved) {
 		    wait(100);
@@ -134,7 +137,6 @@ public class Mazesolver{
 		Point next = rest.remove();
 		if (!(next.getX() < 0 || next.getX() > maze.length || next.getY() < 0 || next.getY() > maze[0].length)) {
 		    if(endx == next.getX() && endy == next.getY()) {
-			System.out.println("Ran solved");
 			addCoordinatesToSolutionArray(next);
 		    	solved = true;
 		    }
@@ -149,10 +151,10 @@ public class Mazesolver{
 		    }
 		}
 	    }
-	}
-	catch (NullPointerException e) {
-	    return false;
-	}
+	    //}
+	    //catch (NullPointerException e) {
+	    //return false;
+	    //}
 	return true;
      }
 

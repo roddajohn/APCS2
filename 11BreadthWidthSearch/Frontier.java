@@ -1,23 +1,38 @@
 public class Frontier {
     private int toggle;
+    private int endx, endy;
     MyDoubleEndedQueue<Point> frontier;
-    public Frontier(int mode) {
+    public Frontier(int mode, int endxa, int endya) {
 	toggle = mode;
+	endx = endxa;
+	endy = endya;
 	frontier = new MyDoubleEndedQueue<Point>();
     }
     public String toString() {
 	return frontier.toString();
     }
     public void add(Point p) {
-	frontier.addLast(p);
+	if (toggle == 2) {
+	    frontier.addLast(p, ((int)Math.abs((p.getX() - endx)) + Math.abs(p.getY() - endy)));
+	}
+	else if (toggle == 3) {
+
+	}
+	else {
+	    frontier.addLast(p);
+	}
     }
     public Point remove() {
 	if (toggle == 0) {
 	    return frontier.removeLast();
 	}
-	else {
+	else if (toggle == 1) {
 	    return frontier.removeFirst();
 	}
+	else if (toggle == 2) {
+	    return frontier.removeSmallest();
+	}
+	return null;
     }
     public boolean hasNext() {
 	if (frontier.size() != 0) {
