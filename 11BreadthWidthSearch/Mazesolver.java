@@ -13,9 +13,13 @@ public class Mazesolver{
     public static void main(String[] args) {
 	
 	Mazesolver a = new Mazesolver(args[0]);
-	a.solve(2);
-	System.out.println(a);
-	//	Mazesolver b = new Mazesolver(args[0]);
+	if (a.solve(Integer.parseInt(args[1]), true)) {
+	    System.out.println(a);
+	}
+	else { 
+	    System.out.println("No solution");
+	}
+	    //	Mazesolver b = new Mazesolver(args[0]);
 	//	b.DFS(true);
     }
 
@@ -120,8 +124,7 @@ public class Mazesolver{
 	return hide()+clear()+invert()+go(0,0)+ans+"\n"+rest.toString()+"\n"+show();
     }
     
-    public boolean solve(int mode){
-	boolean animate = true;
+    public boolean solve(int mode, boolean animate){
 	rest = new Frontier(mode, endx, endy);
 	Point start = new Point(startx, starty);
 
@@ -136,44 +139,46 @@ public class Mazesolver{
 		}
 		Point next = rest.remove();
 		if (!(next.getX() < 0 || next.getX() > maze.length || next.getY() < 0 || next.getY() > maze[0].length)) {
-		    if(endx == next.getX() && endy == next.getY()) {
+ 		    if(endx == next.getX() && endy == next.getY()) {
 			addCoordinatesToSolutionArray(next);
 		    	solved = true;
 		    }
-		    else if (maze[next.getX()][next.getY()] == '?' || maze[next.getX()][next.getY()] == 'S') {
+		    else if (maze[next.getX()][next.getY()] == '?' || maze[next.getX()][next.getY()] == 'E' || maze[next.getX()][next.getY()] == 'S') {
 			maze[next.getX()][next.getY()]='x';
 			for(Point p : getNeighbors(next)) {
 			    if (p != null) {
 				rest.add(p);
-				maze[p.getX()][p.getY()] = '?';
+				if (!(p.getX() == endx && p.getY() == endy)) {   
+				    maze[p.getX()][p.getY()] = '?';
+				}
 			    }
 			}
 		    }
 		}
 	    }
-	    //}
-	    //catch (NullPointerException e) {
-	    //return false;
-	    //}
+	    //	}
+	//catch (NullPointerException e) {
+	//    return false;
+	//}
 	return true;
-     }
+    }
 
     public Point[] getNeighbors(Point p) {
 	Point[] neighbors = new Point[4];
 	if (maze[p.getX() - 1][p.getY()] != '#' && maze[p.getX() - 1][p.getY()] != '?' && maze[p.getX() - 1][p.getY()] != 'x') {
-	    neighbors[0] = new Point(p.getX() - 1, p.getY(), p);
+	    neighbors[0] = new Point(p.getX() - 1, p.getY(), p, p.getSteps());
 	    
 	}
 	if (maze[p.getX() + 1][p.getY()] != '#' && maze[p.getX() + 1][p.getY()] != '?' && maze[p.getX() + 1][p.getY()] != 'x') {
-	    neighbors[1] = new Point(p.getX() + 1, p.getY(), p);
+	    neighbors[1] = new Point(p.getX() + 1, p.getY(), p, p.getSteps());
 		
 	}
 	if (maze[p.getX()][p.getY() + 1] != '#' && maze[p.getX()][p.getY() + 1] != '?' && maze[p.getX()][p.getY() + 1] != 'x') {
-	    neighbors[2] = new Point(p.getX(), p.getY() + 1, p);
+	    neighbors[2] = new Point(p.getX(), p.getY() + 1, p, p.getSteps());
 	
 	}
 	if (maze[p.getX()][p.getY() - 1] != '#' && maze[p.getX()][p.getY() - 1] != '?' && maze[p.getX()][p.getY() - 1] != 'x') {
-	    neighbors[3] = new Point(p.getX(), p.getY() - 1, p);
+	    neighbors[3] = new Point(p.getX(), p.getY() - 1, p, p.getSteps());
 	    
 	}
 	return neighbors;

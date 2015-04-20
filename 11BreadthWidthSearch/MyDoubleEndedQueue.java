@@ -9,16 +9,17 @@ public class MyDoubleEndedQueue<T> {
     
     
     public static void main(String[] args) {
-	MyDoubleEndedQueue<String> a = new MyDoubleEndedQueue<String>();
+	MyDoubleEndedQueue<Integer> a = new MyDoubleEndedQueue<Integer>();
 	System.out.println(a);
-	a.addFirst("i", 0);
-	a.addFirst("i", 1);
-	a.addFirst("i", 2);
-	for (int i = 0; i < 100; i++) {
-	    a.addFirst("i", i);
+	for(int i = 0; i < 10; i++) {
+	    a.addFirst(i);
 	}
-	a.addFirst("i", 0);
-	System.out.println(a.removeLargest());
+	System.out.println(a);
+	a.addFirst(111);
+	System.out.println(a);
+	for (int i = 0; i < 1; i++) {
+	    System.out.println(a.removeLast());
+	}
 	System.out.println(a);
     }
     
@@ -28,9 +29,32 @@ public class MyDoubleEndedQueue<T> {
 	tail = 4;
 	size = 0;
 	priority = new int[10];
-	//	for (int i = 0; i < priority.length; i++) {
-	//	    priority[i] = Integer.MAX_VALUE;
-	//	}
+    }
+
+    public void getAndResize() {
+	Object[] hi = new Object[data.length * 2];
+	int[] lol = new int[data.length * 2];
+	int i = tail + 1;
+	int j = 0;
+	while ((i + 1) != head) {
+	    System.out.println("i: " + i);
+	    System.out.println("j: " + j);
+	    hi[j] = data[i];
+	    lol[j] = priority[i];
+	    j++;
+	    i++;
+	    if (i == data.length) {
+		i = 0;
+	    }
+	}
+	hi[j] = data[head - 1];
+	lol[j] = priority[head - 1];
+	tail = 0;
+	head = data.length;
+	data = hi;
+	priority = lol;
+	tail = data.length - 1;
+	
     }
 
     public String toString() {
@@ -45,7 +69,7 @@ public class MyDoubleEndedQueue<T> {
 	    toReturn += i + ", ";
 	}
 	toReturn += "]";
-	return toReturn;
+	return toReturn + "\nHead:" + head + "\nTail: " + tail;
     }
     
     public void addFirst(T value) {
@@ -96,50 +120,23 @@ public class MyDoubleEndedQueue<T> {
     public T removeSmallest() {
 	int indexOfSmallest = 0;
 	for (int i = 0; i < data.length; i++) {
-	    if ((priority[i] > priority[indexOfSmallest] && data[i] != null)||data[indexOfSmallest] == null) {
+	    if ((priority[i] < priority[indexOfSmallest] && data[i] != null)||data[indexOfSmallest] == null) {
 		indexOfSmallest = i;
  	    }
 	}
 	T toReturn = (T)data[indexOfSmallest];
-	eliminateEmpty(indexOfSmallest);
-	return toReturn;
-    }
-    public T removeLargest() {
-	int indexOfSmallest = 0;
-	for (int i = 0; i < data.length; i++) {
-	    if ((priority[i] > priority[indexOfSmallest] && data[i] != null)||data[indexOfSmallest] == null) {
-		indexOfSmallest = i;
-	    }
+	tail++;
+	if (tail == data.length) {
+	    tail = 0;
 	}
-	T toReturn = (T)data[indexOfSmallest];
-	eliminateEmpty(indexOfSmallest);
-	return toReturn;
-    }
-    public void eliminateEmpty(int index) {
-	int i = tail;
-	Object previous = null;
-	int previousPriority = 0;
-	while (i != index) {
-	    Object temp = previous;
-	    previous = data[i];
-	    data[i] = temp;
-	    int tempa = previousPriority;
-	    tempa = previousPriority;
-	    previousPriority = priority[i];
-	    priority[i] = tempa;
-	    i--;
-	    if (i == -1) {
-		i = data.length - 1;
-	    }
-	}
-	Object temp = previous;
-	previous = data[i];
-	data[i] = temp;
-	int tempa = previousPriority;
-	tempa = previousPriority;
-	previousPriority = priority[i];
-	priority[i] = tempa;
+	int priorityOfHead = priority[tail];
+	T dataInHead = (T)data[tail];
+	data[indexOfSmallest] = dataInHead;
+	priority[indexOfSmallest] = priorityOfHead;
+	data[tail] = null;
+	priority[tail] = 0;
 	size--;
+	return toReturn;
     }
     public T removeFirst() {
         T a;
@@ -191,37 +188,13 @@ public class MyDoubleEndedQueue<T> {
 	    return (T)data[head - 1];
 	}
     }
-	
-    public void getAndResize() {
-	Object[] hi = new Object[data.length * 2];
-	int[] lol = new int[data.length * 2];
-	int i = tail;
-	int j = 0;
-	//	System.out.println("Tail: " + tail);
-	//System.out.println("Head: " + head);
-	while (i != head) {
-	    // System.out.println("i: " + i);
- 
-	    hi[j] = data[i];
-	    lol[j] = priority[i];
-	    j++;
-	    i--;
-	    if (i == -1) {
- 		i = data.length - 1;
-	    }
-	}
-	tail = 0;
-	head = data.length - 1;
-	data = hi;
-	priority = lol;
-    }
     public boolean isFull() {
-	for (Object a : data) {
-	    if (a == null) {
-		return false;
-	    }
+	if (size == data.length) {
+	    return true;
 	}
-	return true;
+	else {
+	    return false;
+	}
     }
     public int size() {
 	return size;

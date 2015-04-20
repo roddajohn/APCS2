@@ -16,7 +16,7 @@ public class Frontier {
 	    frontier.addLast(p, ((int)Math.abs((p.getX() - endx)) + Math.abs(p.getY() - endy)));
 	}
 	else if (toggle == 3) {
-
+	    frontier.addLast(p, ((int)Math.abs((p.getX() - endx)) + Math.abs(p.getY() - endy)) + p.getSteps());
 	}
 	else {
 	    frontier.addLast(p);
@@ -30,6 +30,9 @@ public class Frontier {
 	    return frontier.removeFirst();
 	}
 	else if (toggle == 2) {
+	    return frontier.removeSmallest();
+	}
+	else if (toggle == 3) {
 	    return frontier.removeSmallest();
 	}
 	return null;
