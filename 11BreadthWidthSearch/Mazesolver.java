@@ -13,19 +13,54 @@ public class Mazesolver{
     public static void main(String[] args) {
 	
 	Mazesolver a = new Mazesolver(args[0]);
-	if (a.solve(Integer.parseInt(args[1]), true)) {
-	    System.out.println(a);
+	if (a.solve(Integer.parseInt(args[1]), false)) {
+	    //System.out.println(a);
 	}
 	else { 
 	    System.out.println("No solution");
 	}
-	    //	Mazesolver b = new Mazesolver(args[0]);
-	//	b.DFS(true);
     }
 
     private String color(int foreground,int background) {
 	return ("\033[1;" + foreground + ";" + background + "m");
     }
+
+    public boolean solveDFS() {
+	return solve(0, false);
+    }
+
+    public boolean solveBFS() {
+	return solve(1, false);
+    }
+
+    public boolean solveBest() {
+	return solve(2, false);
+    }
+
+    public boolean solveAStar() {
+	return solve(3, false);
+    }
+
+    public boolean solveDFS(boolean animate) {
+	return solve(0, animate);
+    }
+
+    public boolean solveBFS(boolean animate) {
+	return solve(1, animate);
+    }
+
+    public boolean solveBest(boolean animate) {
+	return solve(2, animate);
+    }
+
+    public boolean solveAStar(boolean animate) {
+	return solve(3, animate);
+    }
+
+    public String name() {
+	return "john,rodda";
+    }
+
     public Mazesolver(String filename){
 	startx = -1;
 	starty = -1;
@@ -131,7 +166,7 @@ public class Mazesolver{
 	rest.add(start);
 
 	boolean solved = false;
-	//try {
+	try {
 	    while(!solved && rest.hasNext()){
 		if(animate && !solved) {
 		    wait(100);
@@ -156,10 +191,10 @@ public class Mazesolver{
 		    }
 		}
 	    }
-	    //	}
-	//catch (NullPointerException e) {
-	//    return false;
-	//}
+   	}
+	catch (NullPointerException e) {
+	    return false;
+	}
 	return true;
     }
 

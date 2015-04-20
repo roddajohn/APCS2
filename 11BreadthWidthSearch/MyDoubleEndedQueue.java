@@ -35,10 +35,11 @@ public class MyDoubleEndedQueue<T> {
 	Object[] hi = new Object[data.length * 2];
 	int[] lol = new int[data.length * 2];
 	int i = tail + 1;
+	if (i == data.length) {
+	    i = 0;
+	}
 	int j = 0;
-	while ((i + 1) != head) {
-	    System.out.println("i: " + i);
-	    System.out.println("j: " + j);
+	while ((i + 1) != head && !(head == 0 && i == 0)) {
 	    hi[j] = data[i];
 	    lol[j] = priority[i];
 	    j++;
@@ -47,8 +48,14 @@ public class MyDoubleEndedQueue<T> {
 		i = 0;
 	    }
 	}
-	hi[j] = data[head - 1];
-	lol[j] = priority[head - 1];
+	if (head == 0) {
+	    hi[j] = data[data.length - 1];
+	    lol[j] = priority[data.length - 1];
+	}
+	else {
+	    hi[j] = data[head - 1];
+	    lol[j] = priority[head - 1];
+	}
 	tail = 0;
 	head = data.length;
 	data = hi;
