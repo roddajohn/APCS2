@@ -13,7 +13,7 @@ public class Mazesolver{
     public static void main(String[] args) {
 	
 	Mazesolver a = new Mazesolver(args[0]);
-	if (a.solve(Integer.parseInt(args[1]), false)) {
+	if (a.solve(Integer.parseInt(args[1]), true)) {
 	    //System.out.println(a);
 	}
 	else { 
