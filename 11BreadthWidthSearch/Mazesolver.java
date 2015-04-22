@@ -14,7 +14,7 @@ public class Mazesolver{
 	
 	Mazesolver a = new Mazesolver(args[0]);
 	if (a.solve(Integer.parseInt(args[1]), true)) {
-	    //System.out.println(a);
+	    System.out.println(a);
 	}
 	else { 
 	    System.out.println("No solution");
