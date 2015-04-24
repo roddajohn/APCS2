@@ -5,5 +5,6 @@ public class Driver {
 	    hi.add(i);
 	    System.out.println(hi);
 	}
+	System.out.println(hi.traverse(0));
     }
 }

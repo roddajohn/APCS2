@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 public class BTree<T> {
     private TreeNode<T> root;
     public static final int PRE_ORDER = 0;
@@ -30,7 +32,7 @@ public class BTree<T> {
 	else {
 	    toReturn += inOrder(checking.getLeft());
 	}
-	toReturn += checking.getData().toString();
+	toReturn += checking.getData().toString() + " ";
 	if (checking.getRight() == null) {
 	    toReturn += " ";
 	}
@@ -42,7 +44,7 @@ public class BTree<T> {
 
     private String preOrder(TreeNode<T> checking) {
 	String toReturn = "";
-	toReturn += checking.getData().toString();
+	toReturn += checking.getData().toString() + " ";
 	if (checking.getLeft() == null) {
 	    toReturn += " ";
 	}
@@ -72,7 +74,7 @@ public class BTree<T> {
 	else {
 	    toReturn += postOrder(checking.getRight());
 	}
-	toReturn += checking.getData().toString();
+	toReturn += checking.getData().toString() + " ";
 	return toReturn;
     }
 
@@ -94,7 +96,12 @@ public class BTree<T> {
 	    checking.setRight(new TreeNode<T>(newData));
 	}
 	else {
-	    addL(newData, checking.getLeft());
+	    if ((Math.random() * 100) % 2 == 0) {
+		addL(newData, checking.getRight());
+	    }
+	    else {
+		addL(newData, checking.getLeft());
+	    }
 	}
 	return newData;
     }
@@ -128,13 +135,10 @@ public class BTree<T> {
        	if (level == currLevel) {
 	    return checking.getData().toString();
 	}
-	if (checking.getLeft() != null) {
+	else if (checking.getLeft() != null) {
 	    toReturn += getLevel(checking.getLeft(), level, currLevel + 1) + " ";
 	}
-	else {
-	    toReturn += "   ";
-	}
-	if (checking.getRight() != null) {
+	if (checking.getRight() != null && level != currLevel) {
 	    toReturn += getLevel(checking.getRight(), level, currLevel + 1) + " ";
 	}
 	else {
