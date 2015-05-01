@@ -102,29 +102,51 @@ public class BSTree <T extends Comparable> {
       curr, if it exists.
       ====================*/
     private TreeNode<T> remove(TreeNode<T> curr, T c) {
-	if (curr.getData().compareTo(c) == 0) {
-	    if (curr.getTally() > 1) {
-		curr.decrementTally();
+	if (curr.getLeft() != null && curr.getLeft().getData().compareTo(c) == 0) {
+	    if (curr.getLeft().getTally() > 1) {
+		curr.getLeft().decrementTally();
 	    }
-	    else if (children(curr) == 0) {
-
+	    else if (children(curr.getLeft()) == 0) {
+		curr.setLeft() = null;
 	    }
-	    else if (children(curr) == 1) {
-
+	    else if (children(curr.getLeft()) == 1) {
+		if (curr.getLeft().getLeft() == null) {
+		    curr.setLeft(curr.getLeft().getRight());
+		}
+		else {
+		    curr.setLeft(curr.getLeft().getLeft());
+		}
 	    }
 	    else {
 
 	    }
 	}
+	else if (curr.getRight() != null && curr.getRight().getData().compareTo(c) == 0) {
+	    if (curr.getRight().getTally() > 1) {
+		curr.getRight().decrementTally();
+	    }
+	    else if (children(curr.getRight()) == 0) {
+		curr.getRight() = null;
+	    }
+	    else if (children(curr.getRight()) == 1) {
+		if (curr.getRight().getLeft() == null) {
+		    curr.setRight(curr.getRight().getRight());
+		}
+		else {
+		    curr.setRight(curr.getRight().getLeft());
+		}
+	    }
+	    else {
+		
+	    }
+	}
 	else if (curr.getData().compareTo(c) > 0) {
 	    remove(curr.getLeft(), c);
-	    return curr;
 	}
 	else {
 	    remove(curr.getRight(), c);
-	    return curr;
 	}
-	return null;
+	return curr;
     }
 
 
@@ -177,6 +199,8 @@ public class BSTree <T extends Comparable> {
 	}
 	return max;
     }
+
+    //Denis' code
 
     private String spaces(double n) {
 	// returns a String of n spaces
