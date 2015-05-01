@@ -89,18 +89,36 @@ public class BTree<T> {
     }
 
     private T addL(T newData, TreeNode<T> checking) {
-	if (checking.getLeft() == null) {
-	    checking.setLeft(new TreeNode<T>(newData));
-	}
-	else if (checking.getRight() == null) {
-	    checking.setRight(new TreeNode<T>(newData));
-	}
-	else {
-	    if ((Math.random() * 100) % 2 == 0) {
-		addL(newData, checking.getRight());
+	if (((int) Math.floor(Math.random() * 101) % 2) == 0) {
+	    if (checking.getLeft() == null) {
+		checking.setLeft(new TreeNode<T>(newData));
+	    }
+	    else if (checking.getRight() == null) {
+		checking.setRight(new TreeNode<T>(newData));
 	    }
 	    else {
-		addL(newData, checking.getLeft());
+		if (((int) Math.floor(Math.random() * 101) % 2) == 0) {
+		    addL(newData, checking.getRight());
+		}
+		else {
+		    addL(newData, checking.getLeft());
+		}
+	    }
+	}
+	else {
+	    if (checking.getRight() == null) {
+		checking.setRight(new TreeNode<T>(newData));
+	    }
+	    else if (checking.getLeft() == null) {
+		checking.setLeft(new TreeNode<T>(newData));
+	    }
+	    else {
+		if (((int) Math.floor(Math.random() * 101) % 2) == 0) {
+		    addL(newData, checking.getRight());
+		}
+		else {
+		    addL(newData, checking.getLeft());
+		}
 	    }
 	}
 	return newData;

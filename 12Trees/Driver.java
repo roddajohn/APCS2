@@ -1,10 +1,11 @@
+import java.lang.Math;
+
 public class Driver {
     public static void main(String[] args) {
-	BTree<Integer> hi = new BTree<Integer>();
+	BSTree<Integer> hi = new BSTree<Integer>();
 	for (int i = 0; i < Integer.parseInt(args[0]); i++) {
-	    hi.add(i);
-	    System.out.println(hi);
+	    hi.add((int) (Math.random() * 10));
 	}
-	System.out.println(hi.traverse(0));
+	System.out.println(hi);
     }
 }
