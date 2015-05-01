@@ -102,12 +102,33 @@ public class BSTree <T extends Comparable> {
       curr, if it exists.
       ====================*/
     private TreeNode<T> remove(TreeNode<T> curr, T c) {
-	if (curr.getLeft() != null && curr.getLeft().getData().compareTo(c) == 0) {
+	if (curr == root && curr.getData().compareTo(c) == 0) {
+	    if (curr.getTally() > 1) {
+		curr.decrementTally();
+	    }
+	    else if (children(curr) == 1) {
+		if (curr.getLeft() != null) {
+		    return curr.getLeft();
+		}
+		else {
+		    return curr.getRight();
+		}
+	    }
+	    else if (children(curr) == 0) {
+		return null;
+	    }
+	    else {
+		T max = findMax(curr.getLeft());
+		remove(curr, max);
+		curr.setData(max);
+	    }
+	}
+	else if (curr.getLeft() != null && curr.getLeft().getData().compareTo(c) == 0) {
 	    if (curr.getLeft().getTally() > 1) {
 		curr.getLeft().decrementTally();
 	    }
 	    else if (children(curr.getLeft()) == 0) {
-		curr.setLeft() = null;
+		curr.setLeft(null);
 	    }
 	    else if (children(curr.getLeft()) == 1) {
 		if (curr.getLeft().getLeft() == null) {
@@ -118,7 +139,9 @@ public class BSTree <T extends Comparable> {
 		}
 	    }
 	    else {
-
+		T max = findMax(curr.getLeft().getLeft());
+		remove(curr, max);
+		curr.setData(max);
 	    }
 	}
 	else if (curr.getRight() != null && curr.getRight().getData().compareTo(c) == 0) {
@@ -126,7 +149,7 @@ public class BSTree <T extends Comparable> {
 		curr.getRight().decrementTally();
 	    }
 	    else if (children(curr.getRight()) == 0) {
-		curr.getRight() = null;
+		curr.setRight(null);
 	    }
 	    else if (children(curr.getRight()) == 1) {
 		if (curr.getRight().getLeft() == null) {
@@ -137,7 +160,9 @@ public class BSTree <T extends Comparable> {
 		}
 	    }
 	    else {
-		
+		T max = findMax(curr.getRight().getLeft());
+		remove(curr, max);
+		curr.setData(max);
 	    }
 	}
 	else if (curr.getData().compareTo(c) > 0) {
@@ -147,6 +172,15 @@ public class BSTree <T extends Comparable> {
 	    remove(curr.getRight(), c);
 	}
 	return curr;
+    }
+
+    public T findMax(TreeNode<T> curr) {
+	if (curr.getRight() == null) {
+	    return curr.getData();
+	}
+	else {
+	    return findMax(curr.getRight());
+	}
     }
 
 
