@@ -1,0 +1,29 @@
+public class MyHeapGenerics<T extends Comparable> {
+    private ArrayList<T> data;
+    private boolean isMax;
+    public MyHeapGenerics(boolean isMaxa) {
+	data = new ArrayList<T>();
+	size = 0;
+	isMax = isMaxa;
+    }
+
+    public boolean compare(int index, int index1) {
+	if (index >= data.length || index < 0 || index1 >= data.length || index1 < 0) {
+	    throw new ArrayIndexOutOfBoundsException();
+	}
+	if (isMax) {
+	    if (data.get(index).compareTo(data.get(index1)) >= 0) {
+		return true;
+	    }
+	}
+	else {
+	    if (data.get(index).compareTo(data.get(index1)) < 0) {
+		return true;
+	    }
+	}
+	return false;
+    }
+
+    public 
+
+}
