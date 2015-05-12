@@ -141,7 +141,7 @@ public class BSTree <T extends Comparable> {
 	    else {
 		T max = findMax(curr.getLeft().getLeft());
 		remove(curr, max);
-		curr.setData(max);
+		curr.getLeft().setData(max);
 	    }
 	}
 	else if (curr.getRight() != null && curr.getRight().getData().compareTo(c) == 0) {
@@ -162,7 +162,7 @@ public class BSTree <T extends Comparable> {
 	    else {
 		T max = findMax(curr.getRight().getLeft());
 		remove(curr, max);
-		curr.setData(max);
+		curr.getRight().setData(max);
 	    }
 	}
 	else if (curr.getData().compareTo(c) > 0) {
