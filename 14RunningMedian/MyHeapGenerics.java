@@ -13,7 +13,12 @@ public class MyHeapGenerics<T extends Comparable> {
     }
 
     public T peek() {
-	return data.get(0);
+	try {
+	    return data.get(0);
+	}
+	catch (IndexOutOfBoundsException e) {
+	    return null;
+	}
     }
 
     public boolean compare(int index, int index1) {

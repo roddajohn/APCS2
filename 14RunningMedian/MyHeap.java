@@ -1,7 +1,9 @@
 public class MyHeap {
     private MyHeapGenerics<Integer> heap;
+    private boolean maxHeap;
     public MyHeap(boolean a) {
 	heap = new MyHeapGenerics(a);
+	maxHeap = a;
     }
 
     public MyHeap() {
@@ -21,6 +23,16 @@ public class MyHeap {
     }
 
     public int peek() {
-	return heap.peek();
+	if (heap.peek() == null) {
+	    if (maxHeap) {
+		return Integer.MIN_VALUE;
+	    }
+	    else {
+		return Integer.MAX_VALUE;
+	    }
+	}
+	else {
+	    return heap.peek();
+	}
     }
 }

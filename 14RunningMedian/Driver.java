@@ -12,8 +12,7 @@ public class Driver {
                 System.out.println(a);
             }
             else if (input.equals("get")) {
-                a.getMedian();
-                System.out.println(a);
+                System.out.println("Median: " + a.getMedian());
             }
         }	
     }
