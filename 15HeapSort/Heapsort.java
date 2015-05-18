@@ -16,6 +16,11 @@ public class Heapsort {
 	for (int i = 0; i < array.length; i++) {
 	    swap(array, 0, array.length - (i + 1));
 	    moveDown(array, 0, array.length - (i + 1));
+	    System.out.println();
+	    System.out.println("Printed in sorted: ");
+	    for (int j = 0; j < array.length; j++) {
+		System.out.print(array[j] + ", ");
+	    }
 	}
     }
     
