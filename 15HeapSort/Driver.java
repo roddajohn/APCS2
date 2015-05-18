@@ -1,12 +1,13 @@
+import java.util.Random;
+
 public class Driver {
     public static void main(String[] args) {
-	int[] array = {4, 7, 2, 8, 1, 9, 3};
-	Heapsort.heapify(array);
+	Random random = new Random();
+	int[] array = new int[100];
 	for (int i = 0; i < array.length; i++) {
-	    System.out.print(array[i] + ", ");
+	    array[i] = random.nextInt(10000);
 	}
-	System.out.println();
-	Heapsort.sorted(array);
+	Heapsort.heapsort(array);
 	for (int i = 0; i < array.length; i++) {
 	    System.out.print(array[i] + ", ");
 	}

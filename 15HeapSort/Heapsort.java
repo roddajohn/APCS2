@@ -16,12 +16,6 @@ public class Heapsort {
 	for (int i = 0; i < array.length; i++) {
 	    swap(array, 0, array.length - (i + 1));
 	    moveDown(array, 0, array.length - (i + 1));
-	    System.out.println();
-	    System.out.print("In sorted: ");
-	    for (int j = 0; j < array.length; j++) {
-		System.out.print(array[j] + ", ");
-	    }
-	    System.out.println();
 	}
     }
     
@@ -44,12 +38,7 @@ public class Heapsort {
     }
 
     public static void moveDown(int[] array, int n, int end) {
-	System.out.println();
-	while ((getLeftChild(n) < end || getRightChild(n) < end) && (array[n] < array[getLeftChild(n) || array[n] < array[getRightChild(n)]))) {
-	    System.out.println("In move down: ");
-	    for(int i = 0; i < array.length; i++) {
-		System.out.print(array[i] + ", ");
-	    }
+	while ((getLeftChild(n) < end || getRightChild(n) < end) && (array[n] < array[getLeftChild(n)] || array[n] < array[getRightChild(n)])) {
 	    if (getLeftChild(n) < end && getRightChild(n) < end && (array[n] < array[getLeftChild(n)] && array[n] < array[getRightChild(n)])) {
 		if (array[getLeftChild(n)] < array[getRightChild(n)]) {
 		    swap(array, n, getRightChild(n));
